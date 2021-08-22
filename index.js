@@ -67,11 +67,11 @@ app.view('create_incident', async ({ ack, body, view, client }) => {
         "send_tweet": twitter
     }
   }
-  console.log(JSON.stringify(createIncidentModel))
+
   apiHelper(
-            'post',
+            'POST',
             'https://public-api.freshstatus.io/api/v1/incidents/',
-            createIncidentModel
+             createIncidentModel
             )      
 });
 
