@@ -4,10 +4,9 @@ require('dotenv').config()
 //payload
 const modal = require('./payloads/creation.json')
 const getAffectedComponents = require('./utils/getAffectedComponents')
-
-//models
-// const createIncidentModel = require('./models/createIncident')
-         
+ 
+//utils
+const apiHelper = require('./utils/apiHelper')
 
 const app = new App({
     signingSecret: process.env.SLACK_SIGNING_SECRET,
@@ -53,12 +52,13 @@ app.view('create_incident', async ({ ack, body, view, client }) => {
   const twitter = data['twitter']['choose-state']['selected_option']['value']
   const affected_components = getAffectedComponents(data)
 
+  const isoDate = new Date(start_date).toISOString()
 
   createIncidentModel = {
     "title": title,
     "description": description,
-    "start_time": start_date + start_time,
-    "end_time": end_date + end_time,
+    "start_time": isoDate,
+    // "end_time": end_date,
     "is_private": is_private,
     "affected_components": affected_components,
     "source": source,
@@ -67,7 +67,12 @@ app.view('create_incident', async ({ ack, body, view, client }) => {
         "send_tweet": twitter
     }
   }
-  console.log(createIncidentModel)
+  console.log(JSON.stringify(createIncidentModel))
+  apiHelper(
+            'post',
+            'https://public-api.freshstatus.io/api/v1/incidents/',
+            createIncidentModel
+            )      
 });
 
 // Handle section state change

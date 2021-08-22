@@ -1,22 +1,24 @@
 let axios = require('axios');
 let data = null
 
-async function getData(method, url){
+async function getData(method, url, body){
     const config = {
         method: method,
         url: url,
+        body: JSON.stringify(body),
         headers: { 
           'Content-Type': 'application/json', 
-          'Authorization': 'Basic ZjZjN2Y2NzgzY2JhZTlmY2NhMmJkNjE2NGMyNDQ3YjI6YWtzaGF5a2FkYW0tMTcx'
+          'Authorization': process.env.FRESH_STATUS_AUTH
         }
       };
       
     await axios(config)
     .then((response) => {
         data = response.data
+        console.log(data,"data")
     })
     .catch((error) => {
-        console.log(error);
+        // console.log(error);
     })
      
     return data
