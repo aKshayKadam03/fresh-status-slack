@@ -127,6 +127,7 @@
 		{
 			"type": "input",
 			"block_id": "end_date",
+			"optional": true,
 			"element": {
 				"type": "datepicker",
 				"initial_date": "1990-04-28",
@@ -146,6 +147,7 @@
 		{
 			"type": "input",
 			"block_id": "end_time",
+			"optional": true,
 			"element": {
 				"type": "plain_text_input",
 				"action_id": "plain_text_input-action"
@@ -162,6 +164,7 @@
 		{
 			"type": "input",
 			"block_id": "source",
+			"optional": true,
 			"element": {
 				"type": "static_select",
 				"placeholder": {
